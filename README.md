@@ -16,3 +16,6 @@ ASP.NET MVC web application that serves as the GUI for users to create and maint
 
 ## Scheduling
 Basically the scheduling API library that uses Entity Framework Database First approach and encapsulates patterns such as repository and unit of work when working with data in SQL. Also uses IValidatableObject interface to enable business rules design and other validation needs.
+
+<br/><br/>
+Note: The code base was ported over from previous archived codeplex project https://archive.codeplex.com/?p=wwtscheduler
