@@ -1,0 +1,68 @@
+﻿@model Microsoft.Sample.Automation.Scheduling.Entities.MonthlySchedule
+
+@{
+    ViewBag.Title = "CreateMonthly";
+}
+
+<h2>CreateMonthly</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>MonthlySchedule</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDateTimeUtc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartDateTimeUtc)
+            @Html.ValidationMessageFor(model => model.StartDateTimeUtc)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndDateTimeUtc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndDateTimeUtc)
+            @Html.ValidationMessageFor(model => model.EndDateTimeUtc)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RepeatEvery)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RepeatEvery)
+            @Html.ValidationMessageFor(model => model.RepeatEvery)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Day)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Day)
+            @Html.ValidationMessageFor(model => model.Day)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

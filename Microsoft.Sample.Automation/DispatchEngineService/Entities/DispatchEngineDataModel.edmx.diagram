@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1f929b20061544e4b995802509e7a1a2" Name="Scheduling" ZoomLevel="100" >
+        <EntityTypeShape EntityType="DispatchEngineDataModel.Schedule" Width="2.125" PointX="5" PointY="3.5" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.DailySchedule" Width="1.5" PointX="7.875" PointY="2.625" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.WeeklySchedule" Width="1.5" PointX="7.875" PointY="4.125" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.MonthlySchedule" Width="1.5" PointX="7.875" PointY="5.75" />
+        <InheritanceConnector EntityType="DispatchEngineDataModel.DailySchedule" />
+        <InheritanceConnector EntityType="DispatchEngineDataModel.WeeklySchedule" />
+        <InheritanceConnector EntityType="DispatchEngineDataModel.MonthlySchedule" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.Tool" Width="2" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.Contact" Width="1.5" PointX="3.5" PointY="0.5" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.Device" Width="2" PointX="5.75" PointY="0.5" />
+        <AssociationConnector Association="DispatchEngineDataModel.ScheduleDevice" />
+        <AssociationConnector Association="DispatchEngineDataModel.ScheduleTool" />
+        <AssociationConnector Association="DispatchEngineDataModel.ScheduleContact" />
+        <AssociationConnector Association="DispatchEngineDataModel.ToolContact" />
+      </Diagram>
+      <Diagram DiagramId="34fb1c0563094f7cbedfcf0d9885af3a" Name="Engine" >
+        <EntityTypeShape EntityType="DispatchEngineDataModel.Dispatcher" Width="1.625" PointX="0.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.DispatcherControl" Width="1.625" PointX="2.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.SchedulingHandle" Width="1.625" PointX="2.375" PointY="3.25" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.IrqHandle" Width="1.5" PointX="0.625" PointY="3.25" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.DpcHandle" Width="1.5" PointX="0.625" PointY="5.375" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.Dispatch" Width="2" PointX="6" PointY="0.5" />
+        <EntityTypeShape EntityType="DispatchEngineDataModel.CallbackDevice" Width="1.5" PointX="6" PointY="4.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,151 @@
+﻿@model Microsoft.Sample.Automation.Scheduling.Web.ViewModel.ScheduleEditData<Microsoft.Sample.Automation.Scheduling.Entities.Schedule>
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Schedule</legend>
+
+        @Html.HiddenFor(model => model.Schedule.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Schedule.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Schedule.Name)
+            @Html.ValidationMessageFor(model => model.Schedule.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Schedule.StartDateTimeUtc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Schedule.StartDateTimeUtc)
+            @Html.ValidationMessageFor(model => model.Schedule.StartDateTimeUtc)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Schedule.EndDateTimeUtc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Schedule.EndDateTimeUtc)
+            @Html.ValidationMessageFor(model => model.Schedule.EndDateTimeUtc)
+        </div>
+
+
+                <br /><br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Schedule.Tool)
+        </div>
+        <div class="editor-field">
+            <table>
+                    @{
+                        bool skipTool = false;
+                        if (Model.Schedule.Tool == null)
+                        {
+                            skipTool = true;
+                        }
+
+                        if (Model.Tools != null)
+                        { 
+                            foreach (var tool in Model.Tools)
+                            {
+                                @:  <tr> 
+                                    @: <td> 
+                                        <input type="checkbox" name="selectedToolID" value="@tool.Id" class="SingleSelectCheckBox"
+                                        @if (!skipTool)
+                                        {
+                                            @Html.Raw((tool.Id == Model.Schedule.Tool.Id) ? "checked=\"checked\"" : "")
+                                        }
+                                        />
+                                @tool.Name 
+
+                            }
+                        }
+                      }
+            </table>
+        </div>
+        <br /><br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Schedule.Contact)
+        </div>
+        <div class="editor-field">
+            <table>
+                    @{
+                        bool skipContact = false;
+                        if (Model.Schedule.Contact == null)
+                        {
+                            skipContact = true;
+                        }
+
+                        if (Model.Contacts != null)
+                        { 
+                            foreach (var contact in Model.Contacts)
+                            {
+                                @:  <tr> 
+                                    @: <td> 
+                                        <input type="checkbox" name="selectedContactID" value="@contact.Id" class="SingleSelectCheckBox"
+                                        @if (!skipContact)
+                                        {
+                                            @Html.Raw((contact.Id == Model.Schedule.Contact.Id) ? "checked=\"checked\"" : "")
+                                        }
+                                        />
+                                @:LoginID: @contact.LoginID
+
+                            }
+                        }
+                      }
+            </table>
+        </div>
+        <br /><br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Schedule.Devices)
+        </div>
+        <div class="editor-field">
+            <table>
+                    @{
+                        bool skipDevice = false;
+                        if (Model.Schedule.Devices == null)
+                        {
+                            skipDevice = true;
+                        }
+                            
+                        if (Model.Devices != null)
+                        { 
+                            foreach (var device in Model.Devices)
+                            {
+                                @:  <tr> 
+                                    @: <td> 
+                                        <input type="checkbox" name="selectedDevices" value="@device.Id"
+                                        @if (!skipDevice)
+                                        {
+                                            @Html.Raw((Model.Schedule.Devices.Any(d => d.Id == device.Id)) ? "checked=\"checked\"" : "")
+                                        }
+                                        />
+                                @:Name: @device.Name    IPAddress: @device.IPAddress
+                            }
+                        }
+                      }
+            </table>
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

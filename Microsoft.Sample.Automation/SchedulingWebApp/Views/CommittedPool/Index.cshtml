@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Microsoft.Sample.Automation.Scheduling.Web.ViewModel.CommittedSchedule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <th>
+            ScheduleID
+        </th>
+        <th>
+            ScheduleName
+        </th>
+        <th>
+            DispatchID
+        </th>
+        <th>
+            DispatchStartDateTimeUtc
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DispatchID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDateTimeUtc)
+        </td>
+    </tr>
+}
+
+</table>

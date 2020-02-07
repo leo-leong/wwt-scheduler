@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduling", "Scheduling\Scheduling.csproj", "{14FB4789-403C-4FDD-965C-5A92ADFDFFAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DispatchEngineService", "DispatchEngineService\DispatchEngineService.csproj", "{4D9AB915-32B8-402D-8A14-173354E2AEC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulingWebApp", "SchedulingWebApp\SchedulingWebApp.csproj", "{6F068E91-3279-49F4-9B48-00FCDEA9B640}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduling.Contracts", "Scheduling.Contracts\Scheduling.Contracts.csproj", "{0EE4BEBF-EC06-4901-99F4-9BB69EA41E3A}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SchedulingStore", "SchedulingStore\SchedulingStore.sqlproj", "{BAAA50F2-EBAC-47C9-ADDD-9EC3BBBAC645}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs36
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = DispatchEngineService\\DispatchEngineService.csproj
+		SccProjectName1 = DispatchEngineService
+		SccLocalPath1 = DispatchEngineService
+		SccProjectUniqueName2 = Scheduling.Contracts\\Scheduling.Contracts.csproj
+		SccProjectName2 = Scheduling.Contracts
+		SccLocalPath2 = Scheduling.Contracts
+		SccProjectUniqueName3 = Scheduling\\Scheduling.csproj
+		SccProjectName3 = Scheduling
+		SccLocalPath3 = Scheduling
+		SccProjectUniqueName4 = SchedulingWebApp\\SchedulingWebApp.csproj
+		SccProjectName4 = SchedulingWebApp
+		SccLocalPath4 = SchedulingWebApp
+		SccProjectUniqueName5 = SchedulingStore\\SchedulingStore.sqlproj
+		SccProjectName5 = SchedulingStore
+		SccLocalPath5 = SchedulingStore
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14FB4789-403C-4FDD-965C-5A92ADFDFFAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FB4789-403C-4FDD-965C-5A92ADFDFFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FB4789-403C-4FDD-965C-5A92ADFDFFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FB4789-403C-4FDD-965C-5A92ADFDFFAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D9AB915-32B8-402D-8A14-173354E2AEC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D9AB915-32B8-402D-8A14-173354E2AEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D9AB915-32B8-402D-8A14-173354E2AEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D9AB915-32B8-402D-8A14-173354E2AEC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F068E91-3279-49F4-9B48-00FCDEA9B640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F068E91-3279-49F4-9B48-00FCDEA9B640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F068E91-3279-49F4-9B48-00FCDEA9B640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F068E91-3279-49F4-9B48-00FCDEA9B640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE4BEBF-EC06-4901-99F4-9BB69EA41E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE4BEBF-EC06-4901-99F4-9BB69EA41E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE4BEBF-EC06-4901-99F4-9BB69EA41E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE4BEBF-EC06-4901-99F4-9BB69EA41E3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAAA50F2-EBAC-47C9-ADDD-9EC3BBBAC645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAAA50F2-EBAC-47C9-ADDD-9EC3BBBAC645}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAAA50F2-EBAC-47C9-ADDD-9EC3BBBAC645}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BAAA50F2-EBAC-47C9-ADDD-9EC3BBBAC645}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAAA50F2-EBAC-47C9-ADDD-9EC3BBBAC645}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAAA50F2-EBAC-47C9-ADDD-9EC3BBBAC645}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

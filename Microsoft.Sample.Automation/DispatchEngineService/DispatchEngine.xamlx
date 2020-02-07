@@ -1,0 +1,615 @@
+<WorkflowService mc:Ignorable="sap sap2010 sads" p2:TextExpression.Namespaces="{x:Reference __ReferenceID13}" p2:TextExpression.References="{x:Reference __ReferenceID14}" ConfigurationName="DispatchEngine" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="DispatchEngine"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:mas="clr-namespace:Microsoft.Sample.Automation.Scheduling;assembly=Scheduling.Contracts"
+ xmlns:mase="clr-namespace:Microsoft.Sample.Automation.Scheduling.Engine;assembly=Scheduling.Contracts"
+ xmlns:mase1="clr-namespace:Microsoft.Sample.Automation.Scheduling.Engine;assembly=DispatchEngineService"
+ xmlns:masea="clr-namespace:Microsoft.Sample.Automation.Scheduling.Engine.Activity;assembly=DispatchEngineService"
+ xmlns:masee="clr-namespace:Microsoft.Sample.Automation.Scheduling.Engine.Entities;assembly=DispatchEngineService"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="http://tempuri.org/"
+ xmlns:p1="http://Microsoft.Sample.Automation.Scheduling.Engine"
+ xmlns:p2="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p2:Parallel DisplayName="Dispatch Engine Main" sap2010:WorkflowViewState.IdRef="Parallel_1">
+    <p2:TextExpression.Namespaces>
+      <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID13">
+        <x:String>System</x:String>
+        <x:String>System.Collections.Generic</x:String>
+        <x:String>System.Data</x:String>
+        <x:String>System.Linq</x:String>
+        <x:String>System.Text</x:String>
+        <x:String>Microsoft.Sample.Automation.Scheduling.Engine.Entities</x:String>
+        <x:String>Microsoft.Sample.Automation.Scheduling</x:String>
+        <x:String>Microsoft.Sample.Automation.Scheduling.Engine</x:String>
+      </sco:Collection>
+    </p2:TextExpression.Namespaces>
+    <p2:TextExpression.References>
+      <sco:Collection x:TypeArguments="p2:AssemblyReference" x:Name="__ReferenceID14">
+        <p2:AssemblyReference>EntityFramework</p2:AssemblyReference>
+        <p2:AssemblyReference>Microsoft.CSharp</p2:AssemblyReference>
+        <p2:AssemblyReference>PresentationCore</p2:AssemblyReference>
+        <p2:AssemblyReference>PresentationFramework</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Activities.Presentation</p2:AssemblyReference>
+        <p2:AssemblyReference>System.ComponentModel.DataAnnotations</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Security</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Transactions</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Web.DynamicData</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Drawing</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Web.Entity</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Web.ApplicationServices</p2:AssemblyReference>
+        <p2:AssemblyReference>System</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Activities</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Core</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Data</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Data.Entity</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Runtime.Serialization</p2:AssemblyReference>
+        <p2:AssemblyReference>System.ServiceModel</p2:AssemblyReference>
+        <p2:AssemblyReference>System.ServiceModel.Activities</p2:AssemblyReference>
+        <p2:AssemblyReference>System.ServiceModel.Channels</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Web</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Xaml</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Xml</p2:AssemblyReference>
+        <p2:AssemblyReference>System.Xml.Linq</p2:AssemblyReference>
+        <p2:AssemblyReference>WindowsBase</p2:AssemblyReference>
+        <p2:AssemblyReference>Scheduling.Contracts</p2:AssemblyReference>
+        <p2:AssemblyReference>mscorlib</p2:AssemblyReference>
+        <p2:AssemblyReference>DispatchEngineService</p2:AssemblyReference>
+      </sco:Collection>
+    </p2:TextExpression.References>
+    <p2:Parallel.Variables>
+      <p2:Variable x:TypeArguments="x:Boolean" Default="False" Name="IsInitialized" />
+      <p2:Variable x:TypeArguments="s:DateTime" Name="StartupTimestamp">
+        <p2:Variable.Default>
+          <mca:CSharpValue x:TypeArguments="s:DateTime">DateTime.Now</mca:CSharpValue>
+        </p2:Variable.Default>
+      </p2:Variable>
+      <p2:Variable x:TypeArguments="x:Int32" Default="5" Name="PollDelaySeconds" />
+    </p2:Parallel.Variables>
+    <p2:Sequence DisplayName="Start Engine" sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <p2:Sequence.Variables>
+        <x:Reference>__ReferenceID1</x:Reference>
+        <p2:Variable x:TypeArguments="x:String" Name="variable1" />
+      </p2:Sequence.Variables>
+      <Receive x:Name="__ReferenceID0" CanCreateInstance="True" DisplayName="Receive_StartEngine" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="Start" ServiceContractName="p:IService">
+        <Receive.CorrelationInitializers>
+          <RequestReplyCorrelationInitializer>
+            <RequestReplyCorrelationInitializer.CorrelationHandle>
+              <p2:InArgument x:TypeArguments="CorrelationHandle">
+                <p2:VariableValue x:TypeArguments="CorrelationHandle">
+                  <p2:VariableValue.Variable>
+                    <p2:Variable x:TypeArguments="CorrelationHandle" x:Name="__ReferenceID1" Name="__handle1" />
+                  </p2:VariableValue.Variable>
+                </p2:VariableValue>
+              </p2:InArgument>
+            </RequestReplyCorrelationInitializer.CorrelationHandle>
+          </RequestReplyCorrelationInitializer>
+        </Receive.CorrelationInitializers>
+      </Receive>
+      <p2:If sap2010:WorkflowViewState.IdRef="If_1">
+        <p2:If.Condition>
+          <p2:InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">!IsInitialized</mca:CSharpValue>
+          </p2:InArgument>
+        </p2:If.Condition>
+        <p2:If.Then>
+          <mase1:InitializeCodeActivity sap2010:WorkflowViewState.IdRef="InitializeCodeActivity_1">
+            <mase1:InitializeCodeActivity.Result>
+              <p2:OutArgument x:TypeArguments="x:Boolean">
+                <mca:CSharpReference x:TypeArguments="x:Boolean">IsInitialized</mca:CSharpReference>
+              </p2:OutArgument>
+            </mase1:InitializeCodeActivity.Result>
+          </mase1:InitializeCodeActivity>
+        </p2:If.Then>
+      </p2:If>
+      <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReply_StartEngine" sap2010:WorkflowViewState.IdRef="SendReply_1">
+        <SendMessageContent DeclaredMessageType="x:Boolean">
+          <p2:InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">IsInitialized</mca:CSharpValue>
+          </p2:InArgument>
+        </SendMessageContent>
+      </SendReply>
+    </p2:Sequence>
+    <p2:Sequence DisplayName="Stop Engine" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <p2:Sequence.Variables>
+        <x:Reference>__ReferenceID3</x:Reference>
+        <p2:Variable x:TypeArguments="x:Boolean" Name="IsShutdown" />
+      </p2:Sequence.Variables>
+      <Receive x:Name="__ReferenceID2" CanCreateInstance="True" DisplayName="Receive_StopEngine" sap2010:WorkflowViewState.IdRef="Receive_2" OperationName="Stop" ServiceContractName="p:IService">
+        <Receive.CorrelationInitializers>
+          <RequestReplyCorrelationInitializer>
+            <RequestReplyCorrelationInitializer.CorrelationHandle>
+              <p2:InArgument x:TypeArguments="CorrelationHandle">
+                <p2:VariableValue x:TypeArguments="CorrelationHandle">
+                  <p2:VariableValue.Variable>
+                    <p2:Variable x:TypeArguments="CorrelationHandle" x:Name="__ReferenceID3" Name="__handle1" />
+                  </p2:VariableValue.Variable>
+                </p2:VariableValue>
+              </p2:InArgument>
+            </RequestReplyCorrelationInitializer.CorrelationHandle>
+          </RequestReplyCorrelationInitializer>
+        </Receive.CorrelationInitializers>
+      </Receive>
+      <mase1:ShutdownCodeActivity sap2010:WorkflowViewState.IdRef="ShutdownCodeActivity_1">
+        <mase1:ShutdownCodeActivity.Result>
+          <p2:OutArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpReference x:TypeArguments="x:Boolean">IsShutdown</mca:CSharpReference>
+          </p2:OutArgument>
+        </mase1:ShutdownCodeActivity.Result>
+      </mase1:ShutdownCodeActivity>
+      <SendReply Request="{x:Reference __ReferenceID2}" DisplayName="SendReply_StopEngine" sap2010:WorkflowViewState.IdRef="SendReply_2">
+        <SendMessageContent DeclaredMessageType="x:Boolean">
+          <p2:InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">IsShutdown</mca:CSharpValue>
+          </p2:InArgument>
+        </SendMessageContent>
+      </SendReply>
+      <p2:If sap2010:WorkflowViewState.IdRef="If_4">
+        <p2:If.Condition>
+          <p2:InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">!IsInitialized</mca:CSharpValue>
+          </p2:InArgument>
+        </p2:If.Condition>
+        <p2:If.Then>
+          <p2:TerminateWorkflow sap2010:WorkflowViewState.IdRef="TerminateWorkflow_2" Reason="Shutdown Sent" />
+        </p2:If.Then>
+      </p2:If>
+    </p2:Sequence>
+    <p2:StateMachine InitialState="{x:Reference __ReferenceID10}" DisplayName="Engine StateMachine" sap2010:WorkflowViewState.IdRef="StateMachine_1">
+      <p2:State x:Name="__ReferenceID10" DisplayName="Initialize" sap2010:WorkflowViewState.IdRef="State_8">
+        <p2:State.Entry>
+          <p2:Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <p2:If sap2010:WorkflowViewState.IdRef="If_3">
+              <p2:If.Condition>
+                <p2:InArgument x:TypeArguments="x:Boolean">
+                  <mca:CSharpValue x:TypeArguments="x:Boolean">!IsInitialized</mca:CSharpValue>
+                </p2:InArgument>
+              </p2:If.Condition>
+              <p2:If.Then>
+                <mase1:InitializeCodeActivity sap2010:WorkflowViewState.IdRef="InitializeCodeActivity_2">
+                  <mase1:InitializeCodeActivity.Result>
+                    <p2:OutArgument x:TypeArguments="x:Boolean">
+                      <mca:CSharpReference x:TypeArguments="x:Boolean">IsInitialized</mca:CSharpReference>
+                    </p2:OutArgument>
+                  </mase1:InitializeCodeActivity.Result>
+                </mase1:InitializeCodeActivity>
+              </p2:If.Then>
+            </p2:If>
+          </p2:Sequence>
+        </p2:State.Entry>
+        <p2:State.Transitions>
+          <p2:Transition DisplayName="InitSucess" sap2010:WorkflowViewState.IdRef="Transition_11">
+            <p2:Transition.Condition>
+              <mca:CSharpValue x:TypeArguments="x:Boolean">IsInitialized</mca:CSharpValue>
+            </p2:Transition.Condition>
+            <p2:Transition.To>
+              <p2:State x:Name="__ReferenceID4" DisplayName="Engine Core" sap2010:WorkflowViewState.IdRef="State_7">
+                <p2:State.Entry>
+                  <mase1:EngineCoreCodeActivity sap2010:WorkflowViewState.IdRef="EngineCoreCodeActivity_1">
+                    <mase1:EngineCoreCodeActivity.startuptimestamp>
+                      <p2:InArgument x:TypeArguments="s:DateTime">
+                        <mca:CSharpValue x:TypeArguments="s:DateTime">StartupTimestamp</mca:CSharpValue>
+                      </p2:InArgument>
+                    </mase1:EngineCoreCodeActivity.startuptimestamp>
+                    <mase1:EngineCoreCodeActivity.transition>
+                      <p2:OutArgument x:TypeArguments="masee:EngineControl">
+                        <mca:CSharpReference x:TypeArguments="masee:EngineControl">Transition</mca:CSharpReference>
+                      </p2:OutArgument>
+                    </mase1:EngineCoreCodeActivity.transition>
+                  </mase1:EngineCoreCodeActivity>
+                </p2:State.Entry>
+                <p2:State.Transitions>
+                  <p2:Transition DisplayName="ToIrq" sap2010:WorkflowViewState.IdRef="Transition_6">
+                    <p2:Transition.Condition>
+                      <mca:CSharpValue x:TypeArguments="x:Boolean">Transition == EngineControl.Interrupt</mca:CSharpValue>
+                    </p2:Transition.Condition>
+                    <p2:Transition.To>
+                      <p2:State x:Name="__ReferenceID6" DisplayName="Handle Interrupt" sap2010:WorkflowViewState.IdRef="State_3">
+                        <p2:State.Entry>
+                          <mase1:InterruptCodeActivity sap2010:WorkflowViewState.IdRef="InterruptCodeActivity_1" />
+                        </p2:State.Entry>
+                        <p2:State.Transitions>
+                          <p2:Transition DisplayName="Auto" sap2010:WorkflowViewState.IdRef="Transition_5" To="{x:Reference __ReferenceID4}" />
+                        </p2:State.Transitions>
+                      </p2:State>
+                    </p2:Transition.To>
+                  </p2:Transition>
+                  <p2:Transition DisplayName="ToPoll" sap2010:WorkflowViewState.IdRef="Transition_8">
+                    <p2:Transition.Condition>
+                      <mca:CSharpValue x:TypeArguments="x:Boolean">Transition == EngineControl.Poll</mca:CSharpValue>
+                    </p2:Transition.Condition>
+                    <p2:Transition.To>
+                      <p2:State x:Name="__ReferenceID8" DisplayName="Poll" sap2010:WorkflowViewState.IdRef="State_4">
+                        <p2:State.Entry>
+                          <mase1:PollCodeActivity sap2010:WorkflowViewState.IdRef="PollCodeActivity_1">
+                            <mase1:PollCodeActivity.Result>
+                              <p2:OutArgument x:TypeArguments="x:Boolean">
+                                <mca:CSharpReference x:TypeArguments="x:Boolean">DoDelay</mca:CSharpReference>
+                              </p2:OutArgument>
+                            </mase1:PollCodeActivity.Result>
+                          </mase1:PollCodeActivity>
+                        </p2:State.Entry>
+                        <p2:State.Exit>
+                          <p2:If sap2010:WorkflowViewState.IdRef="If_2">
+                            <p2:If.Condition>
+                              <p2:InArgument x:TypeArguments="x:Boolean">
+                                <mca:CSharpValue x:TypeArguments="x:Boolean">DoDelay</mca:CSharpValue>
+                              </p2:InArgument>
+                            </p2:If.Condition>
+                            <p2:If.Then>
+                              <p2:Delay sap2010:WorkflowViewState.IdRef="Delay_1">
+                                <p2:InArgument x:TypeArguments="x:TimeSpan">
+                                  <mca:CSharpValue x:TypeArguments="x:TimeSpan">TimeSpan.FromSeconds(PollDelaySeconds)</mca:CSharpValue>
+                                </p2:InArgument>
+                              </p2:Delay>
+                            </p2:If.Then>
+                          </p2:If>
+                        </p2:State.Exit>
+                        <p2:State.Transitions>
+                          <p2:Transition DisplayName="Auto" sap2010:WorkflowViewState.IdRef="Transition_7" To="{x:Reference __ReferenceID4}" />
+                        </p2:State.Transitions>
+                        <p2:State.Variables>
+                          <p2:Variable x:TypeArguments="x:Boolean" Default="False" Name="DoDelay" />
+                        </p2:State.Variables>
+                      </p2:State>
+                    </p2:Transition.To>
+                  </p2:Transition>
+                  <p2:Transition DisplayName="ToShutdown" sap2010:WorkflowViewState.IdRef="Transition_10">
+                    <p2:Transition.Condition>
+                      <mca:CSharpValue x:TypeArguments="x:Boolean">Transition == EngineControl.Shutdown</mca:CSharpValue>
+                    </p2:Transition.Condition>
+                    <p2:Transition.To>
+                      <p2:State x:Name="__ReferenceID9" DisplayName="Cleanup" sap2010:WorkflowViewState.IdRef="State_6">
+                        <p2:State.Entry>
+                          <mase1:CleanupCodeActivity sap2010:WorkflowViewState.IdRef="CleanupCodeActivity_1" />
+                        </p2:State.Entry>
+                        <p2:State.Transitions>
+                          <p2:Transition DisplayName="Auto" sap2010:WorkflowViewState.IdRef="Transition_9">
+                            <p2:Transition.To>
+                              <p2:State x:Name="__ReferenceID5" DisplayName="FinalState" sap2010:WorkflowViewState.IdRef="State_5" IsFinal="True">
+                                <p2:State.Entry>
+                                  <p2:TerminateWorkflow sap2010:WorkflowViewState.IdRef="TerminateWorkflow_1" Reason="StateMachine Completed" />
+                                </p2:State.Entry>
+                              </p2:State>
+                            </p2:Transition.To>
+                          </p2:Transition>
+                        </p2:State.Transitions>
+                      </p2:State>
+                    </p2:Transition.To>
+                  </p2:Transition>
+                  <p2:Transition DisplayName="ToDpc" sap2010:WorkflowViewState.IdRef="Transition_4">
+                    <p2:Transition.Condition>
+                      <mca:CSharpValue x:TypeArguments="x:Boolean">Transition == EngineControl.Deferred</mca:CSharpValue>
+                    </p2:Transition.Condition>
+                    <p2:Transition.To>
+                      <p2:State x:Name="__ReferenceID7" DisplayName="Execute Deferred Procedure" sap2010:WorkflowViewState.IdRef="State_2">
+                        <p2:State.Entry>
+                          <mase1:DeferredProcedureCodeActivity sap2010:WorkflowViewState.IdRef="DeferredProcedureCodeActivity_1" />
+                        </p2:State.Entry>
+                        <p2:State.Transitions>
+                          <p2:Transition DisplayName="Auto" sap2010:WorkflowViewState.IdRef="Transition_3" To="{x:Reference __ReferenceID4}" />
+                        </p2:State.Transitions>
+                      </p2:State>
+                    </p2:Transition.To>
+                  </p2:Transition>
+                </p2:State.Transitions>
+              </p2:State>
+            </p2:Transition.To>
+          </p2:Transition>
+          <p2:Transition DisplayName="InitFailed" sap2010:WorkflowViewState.IdRef="Transition_12" To="{x:Reference __ReferenceID5}">
+            <p2:Transition.Condition>
+              <mca:CSharpValue x:TypeArguments="x:Boolean">!IsInitialized</mca:CSharpValue>
+            </p2:Transition.Condition>
+          </p2:Transition>
+        </p2:State.Transitions>
+      </p2:State>
+      <x:Reference>__ReferenceID4</x:Reference>
+      <x:Reference>__ReferenceID6</x:Reference>
+      <x:Reference>__ReferenceID7</x:Reference>
+      <x:Reference>__ReferenceID8</x:Reference>
+      <x:Reference>__ReferenceID9</x:Reference>
+      <x:Reference>__ReferenceID5</x:Reference>
+      <p2:StateMachine.Variables>
+        <p2:Variable x:TypeArguments="masee:EngineControl" Name="Transition">
+          <p2:Variable.Default>
+            <mca:CSharpValue x:TypeArguments="masee:EngineControl">EngineControl.Poll</mca:CSharpValue>
+          </p2:Variable.Default>
+        </p2:Variable>
+      </p2:StateMachine.Variables>
+    </p2:StateMachine>
+    <p2:Sequence DisplayName="Engine Callback" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <p2:Sequence.Variables>
+        <p2:Variable x:TypeArguments="mas:ScheduleContextData" Name="ScheduleContext" />
+        <p2:Variable x:TypeArguments="mase:CallbackResult" Name="CallbackResult" />
+      </p2:Sequence.Variables>
+      <p2:Sequence DisplayName="Callback_ReceiveAndSendReply" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <p2:Sequence.Variables>
+          <x:Reference>__ReferenceID12</x:Reference>
+        </p2:Sequence.Variables>
+        <Receive x:Name="__ReferenceID11" Action="http://Microsoft.Sample.Automation.Scheduling.Engine/IScheduleCallback/Callback" CanCreateInstance="True" DisplayName="Callback_Receive" sap2010:WorkflowViewState.IdRef="Receive_3" OperationName="Callback" ProtectionLevel="None" ServiceContractName="p1:IScheduleCallback">
+          <Receive.CorrelationInitializers>
+            <RequestReplyCorrelationInitializer>
+              <RequestReplyCorrelationInitializer.CorrelationHandle>
+                <p2:InArgument x:TypeArguments="CorrelationHandle">
+                  <p2:VariableValue x:TypeArguments="CorrelationHandle">
+                    <p2:VariableValue.Variable>
+                      <p2:Variable x:TypeArguments="CorrelationHandle" x:Name="__ReferenceID12" Name="__handle" />
+                    </p2:VariableValue.Variable>
+                  </p2:VariableValue>
+                </p2:InArgument>
+              </RequestReplyCorrelationInitializer.CorrelationHandle>
+            </RequestReplyCorrelationInitializer>
+          </Receive.CorrelationInitializers>
+          <ReceiveParametersContent>
+            <p2:OutArgument x:TypeArguments="mas:ScheduleContextData" x:Key="Context">
+              <mca:CSharpReference x:TypeArguments="mas:ScheduleContextData">ScheduleContext</mca:CSharpReference>
+            </p2:OutArgument>
+          </ReceiveParametersContent>
+        </Receive>
+        <masea:CallbackCodeActivity sap2010:WorkflowViewState.IdRef="CallbackCodeActivity_1">
+          <masea:CallbackCodeActivity.ContextData>
+            <p2:InArgument x:TypeArguments="mas:ScheduleContextData">
+              <mca:CSharpValue x:TypeArguments="mas:ScheduleContextData">ScheduleContext</mca:CSharpValue>
+            </p2:InArgument>
+          </masea:CallbackCodeActivity.ContextData>
+          <masea:CallbackCodeActivity.Result>
+            <p2:OutArgument x:TypeArguments="mase:CallbackResult">
+              <mca:CSharpReference x:TypeArguments="mase:CallbackResult">CallbackResult</mca:CSharpReference>
+            </p2:OutArgument>
+          </masea:CallbackCodeActivity.Result>
+        </masea:CallbackCodeActivity>
+        <SendReply Request="{x:Reference __ReferenceID11}" Action="http://Microsoft.Sample.Automation.Scheduling.Engine/IScheduleCallback/CallbackResponse" DisplayName="Callback_SendReply" sap2010:WorkflowViewState.IdRef="SendReply_3">
+          <SendParametersContent>
+            <p2:InArgument x:TypeArguments="mase:CallbackResult" x:Key="CallbackResult">
+              <mca:CSharpValue x:TypeArguments="mase:CallbackResult">CallbackResult</mca:CSharpValue>
+            </p2:InArgument>
+          </SendParametersContent>
+        </SendReply>
+      </p2:Sequence>
+    </p2:Sequence>
+    <sads:DebugSymbol.Symbol>d2BDOlxfY29kZVxURlNcY2l0aWF1dG9tYXRpb25cbWFpblxNaWNyb3NvZnQuQXV0b21hdGlvblxEaXNwYXRjaEVuZ2luZVNlcnZpY2VcRGlzcGF0Y2hFbmdpbmUueGFtbHhFFQP6AhEBAUQ4RD8BB0cLR1cBA0o2SjkBAkwFdxMCswF4BaQBEwKXAaUBBcYCFwEsxwIF+AITAQhRB18RAssBYAdvDwK9AXAHdhMCtAF9B4sBEQKxAYwBB5IBJAKqAZMBB5kBEwKhAZoBB6MBDwKYAcICDcICaAKSAaYBB7gCEgF4wQEPrwIaAVbWARfdASIBUqQCF6sCIgFO5QEXhQIiATWNAhecAiIBMZQCH5gCKgEtzAIH9wIVAQlWEVokAswBYw1jWgK+AWcLbSoCxAFzDXNZArUBggERhgEkArIBjwENjwFeAqsBlgENlgFWAqIBnQENnQFaApkBoQELoQFwAp8BqAELuQEZAoUBvgEPvgFbAX+0Ag+0AlwBesMBE84BMgFt0wEX0wF7AWfiARfiAXYBYooCF4oCegFdoQIXoQJ6AVjYARvYAXQBVaYCG6YChAEBUYMCTIMCUwE25wEb7QE0AUfwARv9ASMBOY8CG48CcAE0lgIjlgKRAQEv0AIJ4wITASPkAgnvAiYBFPACCfYCFQEKahFqZQLFAaEBXqEBbQKgAakBDbgBFQKGAcsBGcsBdAFzxgEZxgFpAW7qASHqAW8BSPMBIfMBZwE69wEf+wEqAUCWAnaWAo4BATDgAg/gAnMBJdUCE9kCJgEk7AIP7AJuARznAg/nAmsBFfMCD/MCZgELrAETrAFgAocBsAERtgEwAowB+QEj+QGJAQFBswEXswFrAo0B</sads:DebugSymbol.Symbol>
+  </p2:Parallel>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Receive_1" sap:VirtualizedContainerService.HintSize="464,86" />
+      <sap2010:ViewStateData Id="InitializeCodeActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,210" />
+      <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="464,86" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="486,648">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Receive_2" sap:VirtualizedContainerService.HintSize="464,86" />
+      <sap2010:ViewStateData Id="ShutdownCodeActivity_1" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="SendReply_2" sap:VirtualizedContainerService.HintSize="464,86" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,210" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="486,648">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InitializeCodeActivity_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,210" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="486,334">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="EngineCoreCodeActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="InterruptCodeActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Transition_5" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">635.75,143 635.75,228.5 585,228.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">59</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">4</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_3" sap:VirtualizedContainerService.HintSize="223,126">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">468.5,17</av:Point>
+            <av:Size x:Key="ShapeSize">223,126</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">209</x:Double>
+            <x:Double x:Key="StateContainerHeight">90.079999999999984</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_6" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">452.25,212.5 452.25,182.5 524.25,182.5 524.25,143</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">42</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">19</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="PollCodeActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,210" />
+      <sap2010:ViewStateData Id="Transition_7" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">295.5,495.6 265.5,495.6 265.5,402.5 319.5,402.5 319.5,372.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">21</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">7</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_4" sap:VirtualizedContainerService.HintSize="189,122">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">295.5,459</av:Point>
+            <av:Size x:Key="ShapeSize">189,122</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">175</x:Double>
+            <x:Double x:Key="StateContainerHeight">86</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_8" sap:VirtualizedContainerService.HintSize="430,509">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">349,372.5 349,402.5 446.7,402.5 446.7,459</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">15</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">62</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CleanupCodeActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="State_5" sap:VirtualizedContainerService.HintSize="326,223">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">13,529.5</av:Point>
+            <av:Size x:Key="ShapeSize">114,61</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_9" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">168.5,320.5 168.5,350.5 98.5,350.5 98.5,529.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">59</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">58</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_6" sap:VirtualizedContainerService.HintSize="114,61">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">83,259.5</av:Point>
+            <av:Size x:Key="ShapeSize">114,61</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_10" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">290,228.5 100.1,228.5 100.1,259.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">5</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">10</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="DeferredProcedureCodeActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Transition_3" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">641,398 526,398 526,372.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">25</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">63</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_2" sap:VirtualizedContainerService.HintSize="220,139">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">641,349</av:Point>
+            <av:Size x:Key="ShapeSize">220,139</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">206</x:Double>
+            <x:Double x:Key="StateContainerHeight">103.00000000000006</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_4" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">585,308.5 674.9,308.5 674.9,349</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">44</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">10</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_7" sap:VirtualizedContainerService.HintSize="295,160">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">290,212.5</av:Point>
+            <av:Size x:Key="ShapeSize">295,160</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">281</x:Double>
+            <x:Double x:Key="StateContainerHeight">124.00000000000011</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_11" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">247,106.1 304.75,106.1 304.75,212.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">44</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">2</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_12" sap:VirtualizedContainerService.HintSize="430,507">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">133,106.1 30.1,106.1 30.1,529.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">45</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">10</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_8" sap:VirtualizedContainerService.HintSize="114,61">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">133,69.5</av:Point>
+            <av:Size x:Key="ShapeSize">114,61</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="StateMachine_1" sap:VirtualizedContainerService.HintSize="200,648">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <av:Point x:Key="ShapeLocation">10,2.5</av:Point>
+            <x:Double x:Key="StateContainerWidth">874</x:Double>
+            <x:Double x:Key="StateContainerHeight">617</x:Double>
+            <av:PointCollection x:Key="ConnectorLocation">70,70 100,70 100,39.5 155.8,39.5 155.8,69.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Receive_3" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="CallbackCodeActivity_1" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="SendReply_3" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Type Type="mase:IScheduleCallback" x:Key="contractType" />
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="299,648">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Parallel_1" sap:VirtualizedContainerService.HintSize="1705,694" />
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="1526,702" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</WorkflowService>

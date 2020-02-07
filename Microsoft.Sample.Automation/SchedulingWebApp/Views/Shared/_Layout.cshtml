@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Tool Scheduler</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("Tool Scheduler", "Index", "Home")</p>
+                </div>
+                <div class="float-right">
+                    @*<section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>*@
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Schedule", "Index", "Schedule")</li>
+                            <li>@Html.ActionLink("Tool", "Index", "Tool")</li>
+                            <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
+                            <li>@Html.ActionLink("Device", "Index", "Device")</li>
+                            <li>&nbsp;...&nbsp;</li>
+                            <li>@Html.ActionLink("CommittedPool", "Index", "CommittedPool")</li>
+                            <li>@Html.ActionLink("Dispatch", "Index", "Dispatch")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Tool Scheduler</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+
+        <script>
+            $("input:checkbox.SingleSelectCheckBox").click(function () {
+                if ($(this).is(":checked")) {
+                    var group = "input:checkbox[name='" + $(this).attr("name") + "']";
+                    $(group).prop("checked", false);
+                    $(this).prop("checked", true);
+                } else {
+                    $(this).prop("checked", false);
+                }
+            });
+        </script>
+    </body>
+</html>

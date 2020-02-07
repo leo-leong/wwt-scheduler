@@ -1,0 +1,36 @@
+﻿@model Microsoft.Sample.Automation.Scheduling.Entities.Device
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Device</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastModifiedDateTimeUtc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastModifiedDateTimeUtc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IPAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IPAddress)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,139 @@
+﻿<WorkflowService mc:Ignorable="sap sap2010 sads" p1:TextExpression.Namespaces="{x:Reference __ReferenceID0}" p1:TextExpression.References="{x:Reference __ReferenceID1}" ConfigurationName="Main" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="Main"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:msas="clr-namespace:Microsoft.Sample.Automation.Scheduling;assembly=Scheduling.Contracts"
+ xmlns:msase="clr-namespace:Microsoft.Sample.Automation.Scheduling.Engine;assembly=Scheduling.Contracts"
+ xmlns:p="http://Microsoft.Sample.Automation.Scheduling"
+ xmlns:p1="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:w="clr-namespace:WorkflowServiceCallbackTool;assembly=WorkflowServiceCallbackTool"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p1:Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <p1:TextExpression.Namespaces>
+      <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID0">
+        <x:String>System</x:String>
+        <x:String>System.Collections.Generic</x:String>
+        <x:String>System.Data</x:String>
+        <x:String>System.Linq</x:String>
+        <x:String>System.Text</x:String>
+        <x:String>Microsoft.Sample.Automation.Scheduling</x:String>
+        <x:String>Microsoft.Sample.Automation.Scheduling.Engine</x:String>
+      </sco:Collection>
+    </p1:TextExpression.Namespaces>
+    <p1:TextExpression.References>
+      <sco:Collection x:TypeArguments="p1:AssemblyReference" x:Name="__ReferenceID1">
+        <p1:AssemblyReference>Microsoft.CSharp</p1:AssemblyReference>
+        <p1:AssemblyReference>PresentationCore</p1:AssemblyReference>
+        <p1:AssemblyReference>PresentationFramework</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Activities.Presentation</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.DynamicData</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Drawing</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.Entity</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.ApplicationServices</p1:AssemblyReference>
+        <p1:AssemblyReference>System</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Core</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Data</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Data.Entity</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Runtime.Serialization</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Channels</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xaml</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xml</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xml.Linq</p1:AssemblyReference>
+        <p1:AssemblyReference>WindowsBase</p1:AssemblyReference>
+        <p1:AssemblyReference>Scheduling.Contracts</p1:AssemblyReference>
+        <p1:AssemblyReference>mscorlib</p1:AssemblyReference>
+        <p1:AssemblyReference>WorkflowServiceCallbackTool</p1:AssemblyReference>
+      </sco:Collection>
+    </p1:TextExpression.References>
+    <p1:Sequence.Variables>
+      <p1:Variable x:TypeArguments="msas:ScheduleContextData" Name="ScheduleContext" />
+      <p1:Variable x:TypeArguments="msase:CallbackResult" Name="CallbackResult" />
+      <p1:Variable x:TypeArguments="x:String" Default="http://localhost:8888/DispatchEngineService/DispatchEngine.xamlx" Name="CallbackEndpoint" />
+    </p1:Sequence.Variables>
+    <Receive Action="http://Microsoft.Sample.Automation.Scheduling/ISchedulableTool/Run" sap2010:Annotation.AnnotationText="WCF request received from Scheduling Engine" CanCreateInstance="True" DisplayName="Run_Receive" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="Run" ProtectionLevel="None" ServiceContractName="p:ISchedulableTool">
+      <ReceiveParametersContent>
+        <p1:OutArgument x:TypeArguments="msas:ScheduleContextData" x:Key="Context">
+          <mca:CSharpReference x:TypeArguments="msas:ScheduleContextData">ScheduleContext</mca:CSharpReference>
+        </p1:OutArgument>
+      </ReceiveParametersContent>
+    </Receive>
+    <p1:If sap2010:Annotation.AnnotationText="over simplistic condition to determine if tool is being run from scheduled callback" sap2010:WorkflowViewState.IdRef="If_1">
+      <p1:If.Condition>
+        <p1:InArgument x:TypeArguments="x:Boolean">
+          <mca:CSharpValue x:TypeArguments="x:Boolean">ScheduleContext.CallbackInfo == null</mca:CSharpValue>
+        </p1:InArgument>
+      </p1:If.Condition>
+      <p1:If.Then>
+        <w:RequestCallbackCodeActivity sap2010:WorkflowViewState.IdRef="RequestCallbackCodeActivity_1">
+          <w:RequestCallbackCodeActivity.ContextData>
+            <p1:InArgument x:TypeArguments="msas:ScheduleContextData">
+              <mca:CSharpValue x:TypeArguments="msas:ScheduleContextData">ScheduleContext</mca:CSharpValue>
+            </p1:InArgument>
+          </w:RequestCallbackCodeActivity.ContextData>
+          <w:RequestCallbackCodeActivity.Endpoint>
+            <p1:InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">CallbackEndpoint</mca:CSharpValue>
+            </p1:InArgument>
+          </w:RequestCallbackCodeActivity.Endpoint>
+          <w:RequestCallbackCodeActivity.Result>
+            <p1:OutArgument x:TypeArguments="msase:CallbackResult">
+              <mca:CSharpReference x:TypeArguments="msase:CallbackResult">CallbackResult</mca:CSharpReference>
+            </p1:OutArgument>
+          </w:RequestCallbackCodeActivity.Result>
+        </w:RequestCallbackCodeActivity>
+      </p1:If.Then>
+      <p1:If.Else>
+        <p1:Delay sap2010:Annotation.AnnotationText="simulate work done" sap2010:WorkflowViewState.IdRef="Delay_1">
+          <p1:InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">TimeSpan.FromSeconds(5)</mca:CSharpValue>
+          </p1:InArgument>
+        </p1:Delay>
+      </p1:If.Else>
+    </p1:If>
+    <sads:DebugSymbol.Symbol>d4QBQzpcX2NvZGVcVEZTXENpdGlBdXRvbWF0aW9uXFByb2RcTWljcm9zb2Z0LlNhbXBsZS5BdXRvbWF0aW9uLlRvb2xcV29ya2Zsb3dTZXJ2aWNlQ2FsbGJhY2tUb29sXFdvcmtmbG93U2VydmljZUNhbGxiYWNrVG9vbFxNYWluLnhhbWx4DBADZxEBATw3PHkBAj4FRA8BGkUFZQ0BA0ELQXABG0gLSG4BBEwJXCkBDV8JYxQBCFkPWW8BFlQPVF0BEk8PT2wBDmENYWQBCQ==</sads:DebugSymbol.Symbol>
+  </p1:Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Receive_1" sap:VirtualizedContainerService.HintSize="464,86">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Type Type="msas:ISchedulableTool" x:Key="contractType" />
+            <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RequestCallbackCodeActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="200,22">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,210">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="486,460">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="516,530" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</WorkflowService>

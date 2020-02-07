@@ -1,0 +1,128 @@
+﻿@model Microsoft.Sample.Automation.Scheduling.Entities.WeeklySchedule
+
+@{
+    ViewBag.Title = "DetailsWeekly";
+}
+
+<h2>DetailsWeekly</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        <input type="submit" value="Commit" name="Command" />
+        <input type="submit" value="Cancel" name="Command" />
+    </p>
+    
+    <fieldset>
+        <legend>WeeklySchedule</legend>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.StartDateTimeUtc)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.StartDateTimeUtc)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.EndDateTimeUtc)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.EndDateTimeUtc)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.RepeatEvery)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RepeatEvery)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DayBitFields)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DayBitFields)
+        </div>
+    </fieldset>
+    <h2>Tool</h2> 
+    if (Model.Tool != null)
+    { 
+        <table>
+            <tr>
+                <td>Name: @Model.Tool.Name
+                </td>
+            </tr>
+        </table> 
+    }
+    else
+    {
+        <p>
+            No Tool associated with this schedule.
+        </p>
+    }
+    
+    <h2>Contact</h2> 
+    if (Model.Contact != null)
+    { 
+        <table>
+            <tr>
+                <td>FirstName: @Model.Contact.FirstName
+                </td>
+                <td>LastName: @Model.Contact.LastName
+                </td>
+                <td>LoginID: @Model.Contact.LoginID
+                </td>
+            </tr>
+        </table> 
+    }
+    else
+    {
+        <p>
+            No Contact associated with this schedule.
+        </p>
+    }
+        
+    <h2>Device(s)</h2> 
+    if (Model.Devices.Count() > 0)
+    { 
+        <table>
+            <tr>
+                <th>Name
+                </th>
+                <th>IPAddress
+                </th>
+            </tr>
+
+                @foreach (var device in Model.Devices)
+                {
+                    <tr>
+                        <td>@device.Name
+                        </td>
+                        <td>@device.IPAddress
+                        </td>
+                    </tr>
+                }
+
+        </table> 
+    }
+    else
+    {
+        <p>
+            No Devices associated with this schedule.
+        </p>
+    }
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

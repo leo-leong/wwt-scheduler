@@ -1,0 +1,7 @@
+﻿@model Nullable<System.DateTime>
+@if ( Model.HasValue ) {
+   @Html.TextBox( "" , String.Format( "{0:MM/dd/yy HH:mm}" , Model.Value ))
+}
+else {
+   @Html.TextBox( "" , String.Format( "{0:MM/dd/yy HH:mm}" , DateTime.UtcNow ))
+}

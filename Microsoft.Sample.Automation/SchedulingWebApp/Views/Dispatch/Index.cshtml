@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Microsoft.Sample.Automation.Scheduling.Entities.Dispatch>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.ToolID)
+        </td>
+        <th>
+            @Html.DisplayNameFor(model => model.ScheduleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDateTimeUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModifiedDateTimeUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RetryCount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToolID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDateTimeUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModifiedDateTimeUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RetryCount)
+        </td>
+    </tr>
+}
+
+</table>

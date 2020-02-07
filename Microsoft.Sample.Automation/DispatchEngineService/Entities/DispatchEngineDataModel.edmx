@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DispatchEngineDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DispatchEngineDataModelStoreContainer">
+    <EntitySet Name="Schedules" EntityType="DispatchEngineDataModel.Store.Schedules" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Dispatches" EntityType="DispatchEngineDataModel.Store.Dispatches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tools" EntityType="DispatchEngineDataModel.Store.Tools" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Contacts" EntityType="DispatchEngineDataModel.Store.Contacts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Dispatchers" EntityType="DispatchEngineDataModel.Store.Dispatchers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DispatcherControls" EntityType="DispatchEngineDataModel.Store.DispatcherControls" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SchedulingPool" EntityType="DispatchEngineDataModel.Store.SchedulingPool" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IrqQueue" EntityType="DispatchEngineDataModel.Store.IrqQueue" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DpcQueue" EntityType="DispatchEngineDataModel.Store.DpcQueue" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Devices" EntityType="DispatchEngineDataModel.Store.Devices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CallbackDevices" EntityType="DispatchEngineDataModel.Store.CallbackDevices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Schedules_DailySchedule" EntityType="DispatchEngineDataModel.Store.Schedules_DailySchedule" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Schedules_WeeklySchedule" EntityType="DispatchEngineDataModel.Store.Schedules_WeeklySchedule" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Schedules_MonthlySchedule" EntityType="DispatchEngineDataModel.Store.Schedules_MonthlySchedule" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ScheduleDevice" EntityType="DispatchEngineDataModel.Store.ScheduleDevice" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ScheduleDevice_Schedule" Association="DispatchEngineDataModel.Store.FK_ScheduleDevice_Schedule">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="ScheduleDevice" EntitySet="ScheduleDevice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleDevice_Device" Association="DispatchEngineDataModel.Store.FK_ScheduleDevice_Device">
+      <End Role="Device" EntitySet="Devices" />
+      <End Role="ScheduleDevice" EntitySet="ScheduleDevice" />
+    </AssociationSet>
+    <AssociationSet Name="ScheduleTool" Association="DispatchEngineDataModel.Store.ScheduleTool">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="Tool" EntitySet="Tools" />
+    </AssociationSet>
+    <AssociationSet Name="ScheduleContact" Association="DispatchEngineDataModel.Store.ScheduleContact">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="ToolContact" Association="DispatchEngineDataModel.Store.ToolContact">
+      <End Role="Tool" EntitySet="Tools" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DailySchedule_inherits_Schedule" Association="DispatchEngineDataModel.Store.FK_DailySchedule_inherits_Schedule">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="DailySchedule" EntitySet="Schedules_DailySchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WeeklySchedule_inherits_Schedule" Association="DispatchEngineDataModel.Store.FK_WeeklySchedule_inherits_Schedule">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="WeeklySchedule" EntitySet="Schedules_WeeklySchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MonthlySchedule_inherits_Schedule" Association="DispatchEngineDataModel.Store.FK_MonthlySchedule_inherits_Schedule">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="MonthlySchedule" EntitySet="Schedules_MonthlySchedule" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Schedules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDateTimeUtc" Type="datetime" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="LastModifiedDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StartDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="EndDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="RepeatEvery" Type="smallint" Nullable="true" />
+    <Property Name="Tool_Id" Type="int" Nullable="true" />
+    <Property Name="Contact_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Dispatches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="LastModifiedDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="StatusID" Type="smallint" Nullable="false" />
+    <Property Name="RetryCount" Type="smallint" Nullable="false" />
+    <Property Name="ScheduleID" Type="bigint" Nullable="false" />
+    <Property Name="StartDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="ToolID" Type="int" Nullable="false" />
+    <Property Name="CallbackInfo" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ErrorCode" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ErrorMsg" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Tools">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDateTimeUtc" Type="datetime" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="LastModifiedDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EndPointAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Contacts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LoginID" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dispatchers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestOrigin" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WorkflowInstanceID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DispatcherControls">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cmd" Type="smallint" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SchedulingPool">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScheduleID" Type="bigint" Nullable="false" />
+    <Property Name="DispatchID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IrqQueue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScheduleID" Type="bigint" Nullable="false" />
+    <Property Name="DispatchID" Type="bigint" Nullable="true" />
+    <Property Name="Level" Type="smallint" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DpcQueue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScheduleID" Type="bigint" Nullable="false" />
+    <Property Name="DispatchID" Type="bigint" Nullable="true" />
+    <Property Name="Importance" Type="smallint" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Devices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastModifiedDateTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IPAddress" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CallbackDevices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DispatchID" Type="bigint" Nullable="false" />
+    <Property Name="DeviceID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Schedules_DailySchedule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="WeekdayOnly" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Schedules_WeeklySchedule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="DayBitFields" Type="smallint" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Schedules_MonthlySchedule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Day" Type="smallint" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ScheduleDevice">
+    <Key>
+      <PropertyRef Name="Schedules_Id" />
+      <PropertyRef Name="Devices_Id" />
+    </Key>
+    <Property Name="Schedules_Id" Type="bigint" Nullable="false" />
+    <Property Name="Devices_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="ScheduleTool">
+    <End Role="Schedule" Type="DispatchEngineDataModel.Store.Schedules" Multiplicity="*" />
+    <End Role="Tool" Type="DispatchEngineDataModel.Store.Tools" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tool">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="Tool_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ScheduleContact">
+    <End Role="Schedule" Type="DispatchEngineDataModel.Store.Schedules" Multiplicity="*" />
+    <End Role="Contact" Type="DispatchEngineDataModel.Store.Contacts" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="Contact_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ToolContact">
+    <End Role="Tool" Type="DispatchEngineDataModel.Store.Tools" Multiplicity="*" />
+    <End Role="Contact" Type="DispatchEngineDataModel.Store.Contacts" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tool">
+        <PropertyRef Name="Contact_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleDevice_Schedule">
+    <End Role="Schedule" Type="DispatchEngineDataModel.Store.Schedules" Multiplicity="1" />
+    <End Role="ScheduleDevice" Type="DispatchEngineDataModel.Store.ScheduleDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScheduleDevice">
+        <PropertyRef Name="Schedules_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleDevice_Device">
+    <End Role="ScheduleDevice" Type="DispatchEngineDataModel.Store.ScheduleDevice" Multiplicity="*" />
+    <End Role="Device" Type="DispatchEngineDataModel.Store.Devices" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScheduleDevice">
+        <PropertyRef Name="Devices_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DailySchedule_inherits_Schedule">
+    <End Role="Schedule" Type="DispatchEngineDataModel.Store.Schedules" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DailySchedule" Type="DispatchEngineDataModel.Store.Schedules_DailySchedule" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DailySchedule">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WeeklySchedule_inherits_Schedule">
+    <End Role="Schedule" Type="DispatchEngineDataModel.Store.Schedules" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WeeklySchedule" Type="DispatchEngineDataModel.Store.Schedules_WeeklySchedule" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WeeklySchedule">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MonthlySchedule_inherits_Schedule">
+    <End Role="Schedule" Type="DispatchEngineDataModel.Store.Schedules" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MonthlySchedule" Type="DispatchEngineDataModel.Store.Schedules_MonthlySchedule" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MonthlySchedule">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DispatchEngineDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DispatchEngineContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Schedules" EntityType="DispatchEngineDataModel.Schedule" cg:GetterAccess="Public" />
+          <EntitySet Name="Dispatches" EntityType="DispatchEngineDataModel.Dispatch" />
+          <EntitySet Name="Tools" EntityType="DispatchEngineDataModel.Tool" />
+          <EntitySet Name="Contacts" EntityType="DispatchEngineDataModel.Contact" />
+          <EntitySet Name="Dispatchers" EntityType="DispatchEngineDataModel.Dispatcher" cg:GetterAccess="Public" />
+          <EntitySet Name="DispatcherControls" EntityType="DispatchEngineDataModel.DispatcherControl" cg:GetterAccess="Public" />
+          <EntitySet Name="SchedulingPool" EntityType="DispatchEngineDataModel.SchedulingHandle" />
+          <EntitySet Name="IrqQueue" EntityType="DispatchEngineDataModel.IrqHandle" />
+          <EntitySet Name="DpcQueue" EntityType="DispatchEngineDataModel.DpcHandle" />
+          <EntitySet Name="Devices" EntityType="DispatchEngineDataModel.Device" />
+          <AssociationSet Name="ScheduleDevice" Association="DispatchEngineDataModel.ScheduleDevice">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="ScheduleTool" Association="DispatchEngineDataModel.ScheduleTool">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Tool" EntitySet="Tools" />
+          </AssociationSet>
+          <AssociationSet Name="ScheduleContact" Association="DispatchEngineDataModel.ScheduleContact">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Contact" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="ToolContact" Association="DispatchEngineDataModel.ToolContact">
+            <End Role="Tool" EntitySet="Tools" />
+            <End Role="Contact" EntitySet="Contacts" />
+          </AssociationSet>
+          <EntitySet Name="CallbackDevices" EntityType="DispatchEngineDataModel.CallbackDevice" />
+          </EntityContainer>
+        <EntityType Name="Schedule" cg:TypeAccess="Public">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedDateTimeUtc" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="DateTime" Name="LastModifiedDateTimeUtc" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="DateTime" Name="StartDateTimeUtc" Nullable="false" />
+          <Property Type="DateTime" Name="EndDateTimeUtc" Nullable="false" />
+          <Property Type="Int16" Name="RepeatEvery" Nullable="true" />
+          <NavigationProperty Name="Tool" Relationship="DispatchEngineDataModel.ScheduleTool" FromRole="Schedule" ToRole="Tool" />
+          <NavigationProperty Name="Contact" Relationship="DispatchEngineDataModel.ScheduleContact" FromRole="Schedule" ToRole="Contact" />
+          <NavigationProperty Name="Devices" Relationship="DispatchEngineDataModel.ScheduleDevice" FromRole="Schedule" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="DailySchedule" BaseType="DispatchEngineDataModel.Schedule" cg:TypeAccess="Public">
+          <Property Type="Boolean" Name="WeekdayOnly" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeeklySchedule" BaseType="DispatchEngineDataModel.Schedule" cg:TypeAccess="Public">
+          <Property Type="DispatchEngineDataModel.Days" Name="DayBitFields" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonthlySchedule" BaseType="DispatchEngineDataModel.Schedule" cg:TypeAccess="Public">
+          <Property Type="Int16" Name="Day" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dispatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedDateTimeUtc" Nullable="false" />
+          <Property Type="DateTime" Name="LastModifiedDateTimeUtc" Nullable="false" />
+          <Property Type="DispatchEngineDataModel.DispatchStatus" Name="StatusID" Nullable="false" />
+          <Property Type="Int16" Name="RetryCount" Nullable="false" />
+          <Property Type="Int64" Name="ScheduleID" Nullable="false" />
+          <Property Type="DateTime" Name="StartDateTimeUtc" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="Int32" Name="ToolID" Nullable="false" />
+          <Property Type="String" Name="CallbackInfo" Nullable="true" />
+          <Property Type="String" Name="ErrorCode" Nullable="true" />
+          <Property Type="String" Name="ErrorMsg" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Tool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedDateTimeUtc" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="DateTime" Name="LastModifiedDateTimeUtc" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Contact" Relationship="DispatchEngineDataModel.ToolContact" FromRole="Tool" ToRole="Contact" />
+          <NavigationProperty Name="Schedules" Relationship="DispatchEngineDataModel.ScheduleTool" FromRole="Tool" ToRole="Schedule" />
+          <Property Type="String" Name="EndPointAddress" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" />
+          <Property Type="String" Name="LastName" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" />
+          <Property Type="String" Name="LoginID" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="DispatchEngineDataModel.ScheduleContact" FromRole="Contact" ToRole="Schedule" />
+          <NavigationProperty Name="Tools" Relationship="DispatchEngineDataModel.ToolContact" FromRole="Contact" ToRole="Tool" />
+        </EntityType>
+        <EntityType Name="Dispatcher" cg:TypeAccess="Public">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RequestOrigin" Nullable="false" />
+          <Property Type="Guid" Name="WorkflowInstanceID" Nullable="false" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DispatcherControl" cg:TypeAccess="Public">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DispatchEngineDataModel.EngineControl" Name="Cmd" Nullable="false" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" />
+        </EntityType>
+        <EnumType Name="DispatchStatus" UnderlyingType="Int16">
+          <Member Name="Pending" Value="0" />
+          <Member Name="Completed" Value="1" />
+          <Member Name="Failed" Value="2" />
+          <Member Name="Cancelled" Value="3" />
+          <Member Name="Callback" Value="4" />
+        </EnumType>
+        <EnumType Name="Days" UnderlyingType="Int16" IsFlags="true">
+          <Member Name="Sunday" Value="1" />
+          <Member Name="Monday" Value="2" />
+          <Member Name="Tuesday" Value="4" />
+          <Member Name="Wednesday" Value="8" />
+          <Member Name="Thursday" Value="16" />
+          <Member Name="Friday" Value="32" />
+          <Member Name="Saturday" Value="64" />
+        </EnumType>
+        <EnumType Name="EngineControl" UnderlyingType="Int16">
+          <Member Name="Shutdown" Value="0" />
+          <Member Name="Interrupt" Value="1" />
+          <Member Name="Deferred" Value="2" />
+          <Member Name="Poll" Value="3" />
+        </EnumType>
+        <EntityType Name="SchedulingHandle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ScheduleID" Nullable="false" />
+          <Property Type="Int64" Name="DispatchID" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IrqHandle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ScheduleID" Nullable="false" />
+          <Property Type="Int64" Name="DispatchID" Nullable="true" />
+          <Property Type="DispatchEngineDataModel.IRQL" Name="Level" Nullable="false" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="DpcHandle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ScheduleID" Nullable="false" />
+          <Property Type="Int64" Name="DispatchID" Nullable="true" />
+          <Property Type="DispatchEngineDataModel.Importance" Name="Importance" Nullable="false" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EnumType Name="IRQL" UnderlyingType="Int16">
+          <Member Name="Passive" Value="0" />
+          <Member Name="Dispatch" Value="1" />
+        </EnumType>
+        <EnumType Name="Importance" UnderlyingType="Int16">
+          <Member Name="Low" Value="0" />
+          <Member Name="Medium" Value="1" />
+          <Member Name="High" Value="2" />
+        </EnumType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="LastModifiedDateTimeUtc" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="IPAddress" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="DispatchEngineDataModel.ScheduleDevice" FromRole="Device" ToRole="Schedule" />
+        </EntityType>
+        <Association Name="ScheduleDevice">
+          <End Type="DispatchEngineDataModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <End Type="DispatchEngineDataModel.Device" Role="Device" Multiplicity="*" />
+        </Association>
+        <Association Name="ScheduleTool">
+          <End Type="DispatchEngineDataModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <End Type="DispatchEngineDataModel.Tool" Role="Tool" Multiplicity="0..1" />
+        </Association>
+        <Association Name="ScheduleContact">
+          <End Type="DispatchEngineDataModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <End Type="DispatchEngineDataModel.Contact" Role="Contact" Multiplicity="0..1" />
+        </Association>
+        <Association Name="ToolContact">
+          <End Type="DispatchEngineDataModel.Tool" Role="Tool" Multiplicity="*" />
+          <End Type="DispatchEngineDataModel.Contact" Role="Contact" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="CallbackDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="DispatchID" Nullable="false" />
+          <Property Type="Int64" Name="DeviceID" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DispatchEngineDataModelStoreContainer" CdmEntityContainer="DispatchEngineContainer">
+    <EntitySetMapping Name="Schedules">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.Schedule)">
+        <MappingFragment StoreEntitySet="Schedules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedDateTimeUtc" ColumnName="CreatedDateTimeUtc" />
+          <ScalarProperty Name="LastModifiedDateTimeUtc" ColumnName="LastModifiedDateTimeUtc" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StartDateTimeUtc" ColumnName="StartDateTimeUtc" />
+          <ScalarProperty Name="EndDateTimeUtc" ColumnName="EndDateTimeUtc" />
+          <ScalarProperty Name="RepeatEvery" ColumnName="RepeatEvery" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.DailySchedule)">
+        <MappingFragment StoreEntitySet="Schedules_DailySchedule">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WeekdayOnly" ColumnName="WeekdayOnly" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.WeeklySchedule)">
+        <MappingFragment StoreEntitySet="Schedules_WeeklySchedule">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DayBitFields" ColumnName="DayBitFields" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.MonthlySchedule)">
+        <MappingFragment StoreEntitySet="Schedules_MonthlySchedule">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dispatches">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.Dispatch)">
+        <MappingFragment StoreEntitySet="Dispatches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedDateTimeUtc" ColumnName="CreatedDateTimeUtc" />
+          <ScalarProperty Name="LastModifiedDateTimeUtc" ColumnName="LastModifiedDateTimeUtc" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="RetryCount" ColumnName="RetryCount" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="StartDateTimeUtc" ColumnName="StartDateTimeUtc" />
+          <ScalarProperty Name="ToolID" ColumnName="ToolID" />
+          <ScalarProperty Name="CallbackInfo" ColumnName="CallbackInfo" />
+          <ScalarProperty Name="ErrorCode" ColumnName="ErrorCode" />
+          <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tools">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.Tool)">
+        <MappingFragment StoreEntitySet="Tools">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedDateTimeUtc" ColumnName="CreatedDateTimeUtc" />
+          <ScalarProperty Name="LastModifiedDateTimeUtc" ColumnName="LastModifiedDateTimeUtc" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EndPointAddress" ColumnName="EndPointAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.Contact)">
+        <MappingFragment StoreEntitySet="Contacts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dispatchers">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.Dispatcher)">
+        <MappingFragment StoreEntitySet="Dispatchers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RequestOrigin" ColumnName="RequestOrigin" />
+          <ScalarProperty Name="WorkflowInstanceID" ColumnName="WorkflowInstanceID" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DispatcherControls">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.DispatcherControl)">
+        <MappingFragment StoreEntitySet="DispatcherControls">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Cmd" ColumnName="Cmd" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SchedulingPool">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.SchedulingHandle)">
+        <MappingFragment StoreEntitySet="SchedulingPool">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="DispatchID" ColumnName="DispatchID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IrqQueue">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.IrqHandle)">
+        <MappingFragment StoreEntitySet="IrqQueue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="DispatchID" ColumnName="DispatchID" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DpcQueue">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.DpcHandle)">
+        <MappingFragment StoreEntitySet="DpcQueue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="DispatchID" ColumnName="DispatchID" />
+          <ScalarProperty Name="Importance" ColumnName="Importance" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Devices">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.Device)">
+        <MappingFragment StoreEntitySet="Devices">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastModifiedDateTimeUtc" ColumnName="LastModifiedDateTimeUtc" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CallbackDevices">
+      <EntityTypeMapping TypeName="IsTypeOf(DispatchEngineDataModel.CallbackDevice)">
+        <MappingFragment StoreEntitySet="CallbackDevices">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DispatchID" ColumnName="DispatchID" />
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ScheduleDevice" TypeName="DispatchEngineDataModel.ScheduleDevice" StoreEntitySet="ScheduleDevice">
+      <EndProperty Name="Schedule">
+        <ScalarProperty Name="Id" ColumnName="Schedules_Id" />
+      </EndProperty>
+      <EndProperty Name="Device">
+        <ScalarProperty Name="Id" ColumnName="Devices_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ScheduleTool" TypeName="DispatchEngineDataModel.ScheduleTool" StoreEntitySet="Schedules">
+      <EndProperty Name="Tool">
+        <ScalarProperty Name="Id" ColumnName="Tool_Id" />
+      </EndProperty>
+      <EndProperty Name="Schedule">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Tool_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ScheduleContact" TypeName="DispatchEngineDataModel.ScheduleContact" StoreEntitySet="Schedules">
+      <EndProperty Name="Contact">
+        <ScalarProperty Name="Id" ColumnName="Contact_Id" />
+      </EndProperty>
+      <EndProperty Name="Schedule">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Contact_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ToolContact" TypeName="DispatchEngineDataModel.ToolContact" StoreEntitySet="Tools">
+      <EndProperty Name="Contact">
+        <ScalarProperty Name="Id" ColumnName="Contact_Id" />
+      </EndProperty>
+      <EndProperty Name="Tool">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Contact_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
